@@ -7,7 +7,7 @@ Map a ribbon sensor from the tuba-sensor-jacket to the frequency of an audio osc
 */
 
 (
-~myRobot = VTMHardwareDevice.new( \tubasensor, ( // declaration
+~myTubaSensor = VTMHardwareDevice.new( \tubasensor, ( // declaration
 	serialPortPath: '/dev/tty.usbserial440', // path is not part of definition as it may be different in each instance
 	// if context definition exists, then we can use the filename here;
 	// context definition does not exist yet, so we create it here and store it in a file later; Context definition is an Environment
