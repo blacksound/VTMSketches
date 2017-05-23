@@ -1,6 +1,6 @@
 (
-~myRobot = VTMHardwareDevice.new('alufoil', (
-	serialPortPath: '/dev/tty.usbserial440',
+~myRobot = VTMHardwareDevice.new('alufoil', 
+	( serialPortPath: '/dev/tty.usbserial440'),
 	definition: Environment.make{
 		//My Contextdefinition to be store to a file later
 		~prepare = {
@@ -69,7 +69,7 @@
 			)
 		];
 	}
-));
+);
 )
 
 
