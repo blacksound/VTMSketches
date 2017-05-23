@@ -48,7 +48,7 @@ Map a ribbon sensor from the tuba-sensor-jacket to the frequency of an audio osc
 			// ~returns = [ // was query; this is the thing that the module outputs
 			( name: \ribbonSensor, type: \integer,
 				minValue: 0, maxValue: 1023, defaultValue: 0,
-				clipMode: \both
+				// clipMode: \both --- does not need to be defined
 			),
 			( name: \ribbonState, type: \integer,
 				enum: [ \sensorOnline, \serialPortClosed ],

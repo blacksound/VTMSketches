@@ -62,7 +62,7 @@
 				Out.ar(out, snd*amp);
 			}).add;
 			~self.declaration.do{|e|  //create buffers for all jingles
-				e.put(\jingleBuffer, Buffer.read(s, e.jingle));
+				e.put(\jingleBuffer, Buffer.read(s, e.jingle));  //freed in ~free
 			};
 		};
 		~startMusic= {|music|
@@ -78,7 +78,8 @@
 		};
 		~jingleSynth= nil;
 		~filesSynth= nil;
-		~buffers= [];
+		~task= nil;
+		~buffers= List.new;
 		~freeBuffers= {
 			~buffer.do{|buf| buf.free};
 		};
@@ -86,15 +87,27 @@
 			~jingleSynth= Synth(\beagleboneSoundJingle, [\buf, ~self.declaration[music][\jingle]]);
 		};
 		~preloadBuffers= {|music|
-
+			~self.declaration[music][\files].do{|path|
+				~buffers.add(Buffer.read(s, x));
+			};
 		};
 		~stopJingle= {
 			~jingleSynth.release;
 		};
 		~playMusic= {|music|
-
+			var paths= ~self.declatation[music][\files];
+			var cond= Condition.new;
+			task= Routine.run({
+				paths.do{|path|
+					~filesSynth= Synth(\beagleboneSoundLooper, [\buf, path]);
+					~filesSynth.onFree{cond.unhang};
+					cond.hang;
+				};
+				"preloadFiles - music done".postln;
+			});
 		};
 		~free= {
+			~task.stop;
 			~jingleSynth.release;
 			~self.declaration.do{|e|  //create buffers for all jingles
 				e[\jingleBuffer].free;
