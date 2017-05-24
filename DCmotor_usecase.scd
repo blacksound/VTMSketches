@@ -1,18 +1,36 @@
 (
-~myRobot = VTMHardwareDevice.new('alufoil', 
-	( serialPortPath: '/dev/tty.usbserial440'),
-	definition: Environment.make{
+~myRobot = VTMHardwareDevice.new(
+	name: 'alufoil', 
+	declaration: (
+	   	serialPortPath: '/dev/ttys8'
+	),
+	definition: Environment.make({
 		//My Contextdefinition to be store to a file later
 		~prepare = {
-			~serialPort = SerialPort(
-				~self.parameters[\serialPortPath],
-				115200
-			).doneAction_({
-				~self.queries[\robotState].value_(\serialPortClosed);
-			}.inEnvir);
+			var serialPortPath;
+			serialPortPath = ~self.parameters[\serialPortPath];
+			try{
+//				~serialPort = SerialPort(
+//					serialPortPath,
+//					115200
+//				).doneAction_({
+//					~self.queries[\robotState].value_(\serialPortClosed);
+//				}.inEnvir);
+				~serialPort = serialPortPath;
+				~serialPort.addUniqueMethod(\putAll, {arg ...args;
+					"serial port:put all %".format(args).postln;
+				});
+				~serialPort.addUniqueMethod(\close, {
+					"serial port:closing %".format(serialPortPath).postln;
+					~self.emit(\serialPortClosed);
+				}.inEnvir);
+			} {
+				VTMError("Did not find serial port path: '%'".format(serialPortPath)).throw;
+			};
 
-			~self.onSignal(\serialPortClose, {
+			~self.onSignal(\serialPortClosed, {
 				~parser.stop;
+				"Serial port was closed, parser stopped".postln;
 			}.inEnvir);
 
 			~sendMsgToRobot = {arg messageName ...args;
@@ -23,23 +41,28 @@
 			};
 			~parser = Routine{
 				var parserState;
-				var newStateValue = \goingForward;
-				loop{
+				var newStateValue = Pseq(
+					[\goingForward, \goingBackwards, \stopped, \stoppedAtMax, \stoppedAtMin], inf
+				).asStream;
+				5.do{
 					//byte parsing code here....
-					~self.queries[\robotState].value_(newStateValue);
+					"new robot state: %".format(newStateValue.next).postln;
+					//~self.queries[\robotState].value_(newStateValue.next);
+					1.wait;
 				};
+				//spoof serial port got disconnected
+				~serialPort.close;
 			};
 			//
-			~self.on(\prepared, {
+			~self.on(\didPrepare, {
 				//start parser
 				~parser.play;
 			});
 		};
-
 		~free = {
 			~parser.stop;
 			~serialPort.close;
-			~self.on("freed", {
+			~self.on('didFree', {
 				"Im doooone".postln;
 			});
 		};
@@ -63,14 +86,23 @@
 				}
 			)
 		];
-		~return = [
+		~queries = [
 			(name: \robotState, type: \integer,
 				enum: ["goingForward", "goingBackward", "stoppedAtMax"]
 			)
 		];
-	}
+	});
 );
 )
 
-
-Environment
+a = VTMOrderedIdentityDictionary.newFrom([\hei -> (type: \integer)])
+~myRobot.name;
+~myRobot.parameters
+~myRobot.attributes.items;
+~myRobot.signals.items;
+~myRobot.commands.items;
+~myRobot.queries.items[\state].fullPath;
+~myRobot.cues;
+~myRobot.envir[\self];
+~myRobot.signal(\serialPortClosed);
+~myRobot.prepare;
