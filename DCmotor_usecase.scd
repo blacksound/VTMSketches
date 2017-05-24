@@ -67,8 +67,8 @@
 			});
 		};
 		~attributes = [
-			(
-				name: \speed, type: \integer,
+			\speed -> (
+				type: \integer,
 				minVal: 0, maxVal: 1023,
 				defaultValue: 0, clipmode: \both,
 				action: {arg attr, context;
@@ -76,8 +76,8 @@
 					context.execute(\sendMsgToRobot, attr.name, val);
 				}
 			),
-			(
-				name: \direction, type: \integer,
+			\direction -> (
+				type: \integer,
 				enum: ['forward', 'backwards'],
 				restrictToEnum: true,
 				action: {arg attr, context;
@@ -86,22 +86,26 @@
 				}
 			)
 		];
+		
 		~queries = [
-			(name: \robotState, type: \integer,
+			\robotState -> (type: \integer,
 				enum: ["goingForward", "goingBackward", "stoppedAtMax"]
 			)
+		];
+		~signals = [
+			\serialPortClosed -> (type: \integer)
 		];
 	});
 );
 )
 
-a = VTMOrderedIdentityDictionary.newFrom([\hei -> (type: \integer)])
+a = VTMOrderedIdentityDictionary.new.putAll([\hei -> (type: \integer)])
 ~myRobot.name;
 ~myRobot.parameters
 ~myRobot.attributes.items;
 ~myRobot.signals.items;
 ~myRobot.commands.items;
-~myRobot.queries.items[\state].fullPath;
+~myRobot.queries.items
 ~myRobot.cues;
 ~myRobot.envir[\self];
 ~myRobot.signal(\serialPortClosed);
