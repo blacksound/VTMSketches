@@ -47,7 +47,7 @@ idInfo: "Teensy MIDI", // gonna change in the microcontroller code
 	// description: ,
 	 features: [
         "20 Knobs",
-		"10 buttons",
+		"10 Buttons",
 		"4 Pages"
     ],
 	// notes: ,
@@ -70,7 +70,9 @@ elementsDesc: (
                     };
                 )
             }
-        ),(
+        ),
+        (
+
             key: \bt,
             shared: ( groupType: \noteOnOff, 'elementType': 'button', 'spec': 'midiBut' ),
             elements: (48..87).collect{ arg item, i;
@@ -78,9 +80,38 @@ elementsDesc: (
                     key: i,
                     shared: ( midiNum: item, mode: \push )
                 )
+
             };
+
         )
+
+
+        /*
+        (
+            key: \bt,
+            shared: ( 'groupType': 'noteOnOff', 'elementType': 'button', 'spec': 'midiBut' ),
+            elements:
+            (48..87).collect{ arg item, i;
+
+                (
+
+                    key: i,
+
+                    shared: ( midiNum: item, mode: \push )
+
+                )
+
+            4.collect{ arg i;
+                (
+                    elements: ( (48..57)+(i*10) ).collect{ arg item, i;
+                        ( key: i, //midiNum: item,
+                            style: ( row: (i/5).floor, column: i%5, height: 1 )
+                            shared: ( midiNum: item, mode: \push, 'groupType': 'noteOnOff' )
+                        )
+                    };
+                )
+            }
+        )*/  //not working but would be nice
 	]
 )
 );
-
