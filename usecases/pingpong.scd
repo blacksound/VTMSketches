@@ -23,7 +23,7 @@
 				}
 			)
 		];
-		~queries= [
+		~returns= [
 			\currentCount -> (
 				type: \integer,
 				minVal: 0, maxVal: nil,
