@@ -7,14 +7,12 @@
 
 (
 ~FlangeMeUp = VTMModule.new( \micFlanger, ( // declaration
-	// if context definition exists, then we can use the filename here;
-	// context definition does not exist yet, so we create it here and store it in a file later; Context definition is an Environment
 	definition:
 	Environment.make({
 		~prepare = {
             SynthDef( \flange, {arg micBus=17;
                 var input, effect;
-                input = SoundIn.ar(micBus) // In.ar(17,1);
+                input = SoundIn.ar(micBus); // In.ar(17,1);
                 input = input + LocalIn.ar(1);
                 effect = DelayN.ar(input, 0.04, SinOsc.kr(\flangerfreq.kr(0.4), 0, 0.007, 0.007)); // 40 ms mx del
                 LocalOut.ar(\feedback.kr(0.5) * RLPF.ar(effect, \cutoff.kr(5000), \rq.kr(0.5)));
