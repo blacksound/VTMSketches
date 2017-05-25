@@ -3,52 +3,58 @@
 ~mySoundfiles= VTMModule(
 	name: 'beagleboneSoundLooper',
 	declaration: (
-		\abba: (
-			\jingle: "/Users/Stirling/PollySounds/scenes/mamma/jingle/mamma_jingle.wav",
-			\files: [
-				"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia1_8beat.wav",
-				"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia2_8beat.wav",
-				"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia3_chorus_16beat.wav",
-				"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia4_chorus_16beat.wav",
-				"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia5_chorus_16beat.wav",
-				"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia6_chorus_16beat.wav"
-			]
-		),
-		\beat: (
-			\jingle: "/Users/Stirling/PollySounds/scenes/submarine/jingle/submarine_jingle.wav",
-			\files: [
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine1-1.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine1-2.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine2-1.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine2-2.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine2-3.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine3.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine4.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine5.wav",
-				"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine6.wav"
-			]
-		),
-		\arvo: (
-			\jingle: "/Users/Stirling/PollySounds/scenes/arvo/jingle/arvo_falsk.aiff",
-			\files: [
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas1.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas2.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas3.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas4.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blas_wagner.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blas1.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blas2.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blasklang1.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blasklang2.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blasklang3.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_doom.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_klocka.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_kompfunk1.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_kompfunk2.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_kompfunk3.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_trummaskin1.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_trummaskin2.aiff",
-				"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_trummaskin3.aiff"
+		\music -> (
+			value: \beat,
+			enum: [
+				\abba: (
+					\jingle: "/Users/Stirling/PollySounds/scenes/mamma/jingle/mamma_jingle.wav",
+					//\jingleBuffer: Buffer() //injected from preload
+					\files: [
+						"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia1_8beat.wav",
+						"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia2_8beat.wav",
+						"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia3_chorus_16beat.wav",
+						"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia4_chorus_16beat.wav",
+						"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia5_chorus_16beat.wav",
+						"/Users/Stirling/PollySounds/scenes/mamma/tune_elements/Mamma_Mia6_chorus_16beat.wav"
+					]
+				),
+				\beat: (
+					\jingle: "/Users/Stirling/PollySounds/scenes/submarine/jingle/submarine_jingle.wav",
+					\files: [
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine1-1.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine1-2.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine2-1.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine2-2.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine2-3.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine3.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine4.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine5.wav",
+						"/Users/Stirling/PollySounds/scenes/submarine/tune_elements/submarine6.wav"
+					]
+				),
+				\arvo: (
+					\jingle: "/Users/Stirling/PollySounds/scenes/arvo/jingle/arvo_falsk.aiff",
+					\files: [
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas1.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas2.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas3.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_bas4.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blas_wagner.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blas1.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blas2.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blasklang1.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blasklang2.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_blasklang3.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_doom.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_klocka.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_kompfunk1.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_kompfunk2.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_kompfunk3.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_trummaskin1.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_trummaskin2.aiff",
+						"/Users/Stirling/PollySounds/scenes/arvo/tune_elements/arvo_trummaskin3.aiff"
+					]
+				)
 			]
 		)
 	),
@@ -82,7 +88,8 @@
 				~buffer.do{|buf| buf.free};
 			};
 			~playJingle= {|music|
-				~jingleSynth= Synth(\beagleboneSoundJingle, [\buf, ~self.parameters[music][\jingle]]);
+				//~jingleSynth= Synth(\beagleboneSoundJingle, [\buf, ~self.parameters[music][\jingle]]);
+				~jingleSynth= Synth(\beagleboneSoundJingle, [\buf, ~self.get(music)[\jingle]]);
 			};
 			~preloadBuffers= {|music|
 				~self.parameters[music][\files].do{|path|
@@ -114,8 +121,7 @@
 		};
 		~attributes= [
 			\music -> (
-				type: \integer,
-				enum: ['abba', 'beatles', 'arvo'],
+				type: \dictionary,
 				restrictToEnum: true,
 				action: {|attr, context|
 					var val= attr.value;
@@ -126,3 +132,5 @@
 	}
 )
 )
+
+~mySoundfiles.set(\music, \abba);
