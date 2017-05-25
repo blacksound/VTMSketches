@@ -1,6 +1,8 @@
+//trying to play a jingle while preloading some longer soundfiles
 (
-~mySoundfiles= VTMHardwareDevice('beagleboneSoundLooper',
-	(
+~mySoundfiles= VTMModule(
+	name: 'beagleboneSoundLooper',
+	declaration: (
 		\abba: (
 			\jingle: "/Users/Stirling/PollySounds/scenes/mamma/jingle/mamma_jingle.wav",
 			\files: [
@@ -61,48 +63,58 @@
 				var snd= PlayBuf.ar(2, buf, doneAction:2);
 				Out.ar(out, snd*amp);
 			}).add;
-			~self.declaration.do{|e|  //create buffers for all jingles
-				e.put(\jingleBuffer, Buffer.read(s, e.jingle));
+			~self.parameters.do{|e|  //create buffers for all jingles
+				e.put(\jingleBuffer, Buffer.read(s, e.jingle));  //freed in ~free
 			};
-		};
-		~startMusic= {|music|
-			s.bind{
+			~startMusic= {|music|
 				~freeBuffers.value;  //free any previous files
 				~playJingle(music).value;  //start playing jingle
 				~preloadBuffers.value(music);  //load new files
 				s.sync;
 				~stopJingle;  //stop jingle
 				~playMusic.value;  //play files in order
-				s.sync;
+			};
+			~jingleSynth= nil;
+			~filesSynth= nil;
+			~task= nil;
+			~buffers= List.new;
+			~freeBuffers= {
+				~buffer.do{|buf| buf.free};
+			};
+			~playJingle= {|music|
+				~jingleSynth= Synth(\beagleboneSoundJingle, [\buf, ~self.parameters[music][\jingle]]);
+			};
+			~preloadBuffers= {|music|
+				~self.parameters[music][\files].do{|path|
+					~buffers.add(Buffer.read(s, x));
+				};
+			};
+			~stopJingle= {
+				~jingleSynth.release;
+			};
+			~playMusic= {|music|
+				var paths= ~self.declatation[music][\files];
+				var cond= Condition.new;
+				task= Routine.run({
+					paths.do{|path|
+						~filesSynth= Synth(\beagleboneSoundLooper, [\buf, path]);
+						~filesSynth.onFree{cond.unhang};
+						cond.hang;
+					};
+					"preloadFiles - music done".postln;
+				});
 			};
 		};
-		~jingleSynth= nil;
-		~filesSynth= nil;
-		~buffers= [];
-		~freeBuffers= {
-			~buffer.do{|buf| buf.free};
-		};
-		~playJingle= {|music|
-			~jingleSynth= Synth(\beagleboneSoundJingle, [\buf, ~self.declaration[music][\jingle]]);
-		};
-		~preloadBuffers= {|music|
-
-		};
-		~stopJingle= {
-			~jingleSynth.release;
-		};
-		~playMusic= {|music|
-
-		};
 		~free= {
+			~task.stop;
 			~jingleSynth.release;
-			~self.declaration.do{|e|  //create buffers for all jingles
+			~self.parameters.do{|e|  //create buffers for all jingles
 				e[\jingleBuffer].free;
 			};
 		};
 		~attributes= [
-			(
-				name: \scene, type: \integer,
+			\music -> (
+				type: \integer,
 				enum: ['abba', 'beatles', 'arvo'],
 				restrictToEnum: true,
 				action: {|attr, context|
