@@ -1,3 +1,4 @@
+//trying to play a jingle while preloading some longer soundfiles
 (
 ~mySoundfiles= VTMModule(
 	name: 'beagleboneSoundLooper',
@@ -112,8 +113,8 @@
 			};
 		};
 		~attributes= [
-			(
-				name: \scene, type: \integer,
+			\music -> (
+				type: \integer,
 				enum: ['abba', 'beatles', 'arvo'],
 				restrictToEnum: true,
 				action: {|attr, context|
