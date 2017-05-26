@@ -1,6 +1,6 @@
 (
 ~myRobot = VTMHardwareDevice.new(
-	name: 'alufoil', 
+	name: 'alufoil',
 	declaration: (
 	   	serialPortPath: '/dev/ttys8'
 	),
@@ -69,7 +69,7 @@
 		};
 		~free = {
 			//~parser.stop;
-			~serialPort.close;
+			~serialPort !? {~serialPort.close;};
 			~self.on('didFree', {
 				"Im doooone".postln;
 			});
@@ -91,7 +91,7 @@
 			\direction -> (
 				type: \integer,
 				enum: ['forward', 'backwards'],
-				restrictToEnum: true,
+				restrictValueToEnum: true,
 				action: {arg attr, context;
 					var val = attr.value;
 					"attr name '%' val %".format(attr.name, val).postln;
@@ -119,16 +119,20 @@
 	});
 );
 )
-
+VTM.local.moduleHost;
+VTM.local.hardwareSetup.items[\alufoil].fullPath
+VTM.local.hardwareSetup.items[\alufoil].isUnmanaged
+VTM.local.hardwareSetup.items
+~myRobot.manager;
 ~myRobot.name;
 ~myRobot.free;
 ~myRobot.parameters
-~myRobot.attributes.items;
-~myRobot.attributes.items;
-~myRobot.signals.items;
-~myRobot.commands.items[\stopListening].action;
-~myRobot.returns.items
-~myRobot.cues.items;
+~myRobot.attributes
+~myRobot.signals;
+~myRobot.free;
+~myRobot.commands;
+~myRobot.returns
+~myRobot.cues
 ~myRobot.envir[\self];
 ~myRobot.prepare;
 ~myRobot.set(\speed, 1023.rand)
@@ -136,15 +140,15 @@
 ~myRobot.get(\speed)
 ~myRobot.query(\robotState)
 ~myRobot.doCommand(\stopListening)
+~myRobot.description;
+~myRobot.fullPath;
 
-
-
+a = VTMAttribute.new(\hei, (type: \integer));
+a.addForwarding('home', NetAddr.localAddr, '/testing/iheg', true)
+a.addForwarding('toMax', NetAddr.localAddr, '/toMax/iheg', false)
 OSCFunc.trace
-NetAddr("192.168.1.129", 57120).sendMsg('/hei', 10.rand)
-NetAddr.broadcastFlag = true
-
-
-NetAddr("192.168.1.255", 57120).sendMsg('/heiBroadcast', 10.rand)
-NetAddr("255.255.255.255", 57120).sendMsg('/heiBroadcast', 10.rand)
-NetAddr.localAddr
-
+a.value_(10.rand);
+a.removeAllForwardings;
+a.disable;
+a.enable;
+a.free
