@@ -87,7 +87,7 @@ elementsDesc: (
 						(
 							key: (i+1).asSymbol,
 							midiNum: num,
-							style: (row: (3 - (i div: 4)).post;, column: (i % 4).postln; )
+							style: (row: (3 - (i div: 4)), column: (i % 4) )
 						);
 					}
 				)
