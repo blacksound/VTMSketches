@@ -122,7 +122,7 @@
 		~attributes= [
 			\music -> (
 				type: \dictionary,
-				restrictToEnum: true,
+				restrictValueToEnum: true,
 				action: {|attr, context|
 					var val= attr.value;
 					context.execute(\startMusic, attr.name, val);

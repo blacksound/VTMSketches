@@ -1,6 +1,6 @@
 (
 ~myRobot = VTMHardwareDevice.new(
-	name: 'alufoil', 
+	name: 'alufoil',
 	declaration: (
 	   	serialPortPath: '/dev/ttys8'
 	),
@@ -91,7 +91,7 @@
 			\direction -> (
 				type: \integer,
 				enum: ['forward', 'backwards'],
-				restrictToEnum: true,
+				restrictValueToEnum: true,
 				action: {arg attr, context;
 					var val = attr.value;
 					"attr name '%' val %".format(attr.name, val).postln;
