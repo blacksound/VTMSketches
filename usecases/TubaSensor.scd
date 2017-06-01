@@ -52,7 +52,7 @@ Map a ribbon sensor from the tuba-sensor-jacket to the frequency of an audio osc
 			),
 			( name: \ribbonState, type: \integer,
 				enum: [ \sensorOnline, \serialPortClosed ],
-				restrictToEnum: false // in case additional states are added in arduino, it is still reported to the outside world
+				restrictValueToEnum: false // in case additional states are added in arduino, it is still reported to the outside world
 			);
 
 		];
