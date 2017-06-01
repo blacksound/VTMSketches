@@ -142,6 +142,13 @@ VTM.local.hardwareSetup.items
 ~myRobot.doCommand(\stopListening)
 ~myRobot.description;
 ~myRobot.fullPath;
+~myRobot.addForwarding('hei', 'attributes', 'speed', NetAddr.localAddr, '/hello');
+~myRobot.addForwarding('hei', 'attributes', 'speed', NetAddr.localAddr, '/hello', true, {|val| val.linlin(0, 1023, 0.0, 1.0)});
+
+~myRobot.addForwarding('hei', 'attributes', 'speed', NetAddr.localAddr, '/hello', false, {|val| val.linlin(0, 1023, 0.0, 1.0)});
+
+~myRobot.addForwarding('hei', 'attributes', 'speed', NetAddr("192.168.1.129", 57120), '/:hardwareDevices/alufoil:attributes/speed');
+~myRobot.removeForwarding('hei', 'attributes', 'speed');
 
 a = VTMAttribute.new(\hei, (type: \integer));
 a.addForwarding('home', NetAddr.localAddr, '/testing/iheg', true)
