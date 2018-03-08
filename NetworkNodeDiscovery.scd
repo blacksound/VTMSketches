@@ -1,23 +1,51 @@
-VTMLocalNetworkNode.discover;
-VTMLocalNetworkNode.remoteNetworkNodes;
-
 VTM.activate;
 VTM.discover;
+VTM.makeView.front;
+VTM.nodes
 
-~jsonData[\hostname]
-~jsonData["hostname"]
-topEnvironment
-NetAddr.newFromIPString("192.168.1.114:57121");
-NetAddr.newFromIPString('192.168.1.114:57121');
-NetAddr.newFromIPString('192.168.1.114:57121'.asString);
 
-VTMLocalNetworkNode.discover();
+NetAddr.localEndPoint
+
 OSCFunc.trace;
+
+
+VTM.local.dump
+VTM.local.localNetworks[0].dump
+VTM.local.localNetworks[1].dump
+VTM.local.localNetworks[0].isIPPartOfSubnet("1.2.3.123");
+VTM.local.localNetworks[0].isIPPartOfSubnet("192.168.1.13");
+VTM.local.localNetworks[0].netmask.asInteger
+
+
+
+VTM.local.localNetworks[0].dump
+VTM.local.localNetworks[1].dump
+
+VTM.local.networkNodeManager.dump;
+VTM.local.networkNodeManager.items[0].description.keys
+
+VTM.local.networkNodeManager.freeItem("imac1");
+
+VTM.local.networkNodeManager.free;
+
+VTM.makeView.front;
+
+
+
+
+
+
 (
-	VTMJSON.stringify(
-		(
-			hostname: "Eiri.local", 
-			addr: NetAddr.localAddr.generateIPString
-		)
-	);
+~other = NetAddr("1.2.3.255").addr;
+// ~other = NetAddr("192.168.1.100").addr;
+~me = NetAddr("1.2.3.123").addr;
+~mask = NetAddr("255.255.255.0").addr.bitNot.bitOr(~me);
+
+
+~result = ~mask.bitOr(~other).postln;
+~result.asBinaryString(32).postln;,
+~result.asHexString(8).postln;
+"TEST: %".format(~result == ~mask).postln;
+
+"";
 )
