@@ -1,10 +1,13 @@
-VTM.activate;
+VTM.activate(true); VTM.makeView.front;
 VTM.discover;
-VTM.makeView.front;
+
 VTM.nodes
 
 
 NetAddr.localEndPoint
+NetAddr("192.168.1.101", 57120).sendMsg('/ahehe', 33);
+
+NetAddr("192.168.1.100", 57120).sendMsg('/ahehe', 33);
 
 OSCFunc.trace;
 
@@ -49,3 +52,6 @@ VTM.makeView.front;
 
 "";
 )
+
+Main.shut
+
