@@ -55,3 +55,7 @@ VTM.makeView.front;
 
 Main.shut
 
+
+
+"ifconfig".unixCmdGetStdOut.hash; //1871924429
+"ifconfig".unixCmdGetStdOut.hash;
