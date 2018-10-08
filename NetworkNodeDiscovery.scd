@@ -3,6 +3,9 @@ VTMLocalNetworkNode.remoteNetworkNodes;
 
 VTM.activate;
 VTM.discover;
+VTM.makeView;
+VTM
+VTM
 
 ~jsonData[\hostname]
 ~jsonData["hostname"]
@@ -16,8 +19,9 @@ OSCFunc.trace;
 (
 	VTMJSON.stringify(
 		(
-			hostname: "Eiri.local", 
+			hostname: "Eiri.local",
 			addr: NetAddr.localAddr.generateIPString
 		)
 	);
 )
+
